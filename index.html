@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Home</title>
+    <meta name="keywords" content="text, test">
+    <meta name="description" content="very long text description">
+</head>
+
+<body>
+
+    <div id="app"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            'use strict';
+            let x = '';
+            fetch('https://api.github.com/users/aleksa0809/repos')
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    for (let repo of data) {
+                        console.log(repo);
+                        x += `
+					<div>
+					<b>user: 
+						<img src="${repo.owner.avatar_url}" style="max-width: 30px;" alt="${repo.owner.login}">
+						<a href="${repo.owner.html_url}">${repo.owner.login}</a></b> 
+						- repo link: 
+						<a href="${repo.html_url}">${repo.name}</a> </div>
+				`;
+                        document.getElementById('app').innerHTML = x;
+                    }
+                })
+
+        });
+    </script>
+
+</body>
+
+</html>
